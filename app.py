@@ -43,20 +43,19 @@ def callback():
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = text=event.message.text
-    if re.match('告訴我秘密',message):
+    if re.match('我要訂餐',message):
         confirm_template_message = TemplateSendMessage(
             alt_text='這是TemplateSendMessage',
             template=ConfirmTemplate(
-                text='你喜歡韓國嗎？',
+                text='無敵好吃牛肉麵 * 1 ，總價NT200？',
                 actions=[
                     PostbackAction(
-                        label='喜歡',
-                        display_text='超喜歡',
-                        data='action=其實不喜歡'
+                        label='確定',
+                        text='訂單已確認，謝謝您的購買！'
                     ),
                     MessageAction(
-                        label='讚',
-                        text='讚讚'
+                        label='取消',
+                        text='已取消訂單，謝謝您的光臨！'
                     )
                 ]
             )
