@@ -51,7 +51,8 @@ def handle_message(event):
                 actions=[
                     PostbackAction(
                         label='確定',
-                        text='訂單已確認，謝謝您的購買！'
+                        text='訂單已確認，謝謝您的購買！',
+                        data='action=其實不喜歡'
                     ),
                     MessageAction(
                         label='取消',
