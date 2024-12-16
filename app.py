@@ -42,40 +42,26 @@ def callback():
 ##### 基本上程式編輯都在這個function #####
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = event.message.text
-    if message == "推薦景點":
-        carousel_template_message = TemplateSendMessage(
-            alt_text="旅遊景點推薦",
-            template=CarouselTemplate(
-                columns=[
-                    CarouselColumn(
-                        title='台北101',
-                        actions=[
-                            URIAction(
-                                uri='https://www.taipei-101.com.tw/tw/'
-                            )
-                        ]
+    message = text=event.message.text
+    if re.match('告訴我秘密',message):
+        confirm_template_message = TemplateSendMessage(
+            alt_text='這是TemplateSendMessage',
+            template=ConfirmTemplate(
+                text='你喜歡韓國嗎？',
+                actions=[
+                    PostbackAction(
+                        label='喜歡',
+                        display_text='超喜歡',
+                        data='action=其實不喜歡'
                     ),
-                    CarouselColumn(
-                        title='日月潭',
-                        actions=[
-                            URIAction(
-                                uri='https://www.sunmoonlake.gov.tw/zh-tw'
-                            )
-                        ]
-                    ),
-                    CarouselColumn(
-                        title='墾丁',
-                        actions=[
-                            URIAction(
-                                uri='https://www.ktnp.gov.tw/'
-                            )
-                        ]
+                    MessageAction(
+                        label='讚',
+                        text='讚讚'
                     )
                 ]
             )
         )
-        line_bot_api.reply_message(event.reply_token, carousel_template_message)
+        line_bot_api.reply_message(event.reply_token, confirm_template_message)
     else:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(message))
 #主程式
